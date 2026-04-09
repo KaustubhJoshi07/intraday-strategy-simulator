@@ -1,13 +1,15 @@
 import { useMemo, useState } from "react";
 import api from "./services/api";
 import {
-  LineChart,
+  AreaChart,
+  Area,
   Line,
   XAxis,
   YAxis,
   Tooltip,
   CartesianGrid,
   ResponsiveContainer,
+  ReferenceLine,
 } from "recharts";
 import "./App.css";
 
@@ -207,21 +209,63 @@ function App() {
                 </div>
               </div>
 
-              <div className="chart-card">
-                <ResponsiveContainer width="100%" height={360}>
-                  <LineChart data={chartData}>
-                    <CartesianGrid stroke="rgba(148, 163, 184, 0.18)" />
-                    <XAxis dataKey="trade_date" hide={chartData.length > 25} />
-                    <YAxis />
-                    <Tooltip />
+              <div className="chart-card chart-card--dark">
+                <ResponsiveContainer width="100%" height={380}>
+                  <AreaChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 10 }}>
+                    <defs>
+                      <linearGradient id="equityFill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#22c55e" stopOpacity={0.35} />
+                        <stop offset="100%" stopColor="#22c55e" stopOpacity={0.03} />
+                      </linearGradient>
+                    </defs>
+
+                    <CartesianGrid stroke="rgba(148, 163, 184, 0.12)" vertical={false} />
+
+                    <XAxis
+                      dataKey="trade_date"
+                      tick={{ fill: "#94a3b8", fontSize: 12 }}
+                      tickLine={false}
+                      axisLine={false}
+                      minTickGap={30}
+                    />
+
+                    <YAxis
+                      tick={{ fill: "#94a3b8", fontSize: 12 }}
+                      tickLine={false}
+                      axisLine={false}
+                      tickFormatter={(value) => `${value}`}
+                    />
+
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: "#0f172a",
+                        border: "1px solid rgba(148, 163, 184, 0.2)",
+                        borderRadius: "12px",
+                        color: "#e2e8f0",
+                      }}
+                      labelStyle={{ color: "#cbd5e1", marginBottom: "6px" }}
+                      formatter={(value) => [`${value}`, "Cumulative P&L"]}
+                    />
+
+                    <ReferenceLine y={0} stroke="rgba(255,255,255,0.22)" strokeDasharray="4 4" />
+
+                    <Area
+                      type="monotone"
+                      dataKey="cumulative_pnl"
+                      stroke="#22c55e"
+                      strokeWidth={3}
+                      fill="url(#equityFill)"
+                    />
+
                     <Line
                       type="monotone"
                       dataKey="cumulative_pnl"
                       stroke="#22c55e"
                       strokeWidth={3}
                       dot={false}
+                      activeDot={{ r: 5 }}
                     />
-                  </LineChart>
+                  </AreaChart>
                 </ResponsiveContainer>
               </div>
             </section>
