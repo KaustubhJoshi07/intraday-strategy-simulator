@@ -13,40 +13,7 @@ import {
 } from "recharts";
 import "./App.css";
 
-const parameterReference = [
-  {
-    label: "Stop Loss Points",
-    meaning: "Maximum points you are willing to lose before exiting a trade.",
-  },
-  {
-    label: "Take Profit Points",
-    meaning: "Target profit in points at which the trade is closed.",
-  },
-  {
-    label: "Quantity",
-    meaning: "Number of units/contracts taken in each trade.",
-  },
-  {
-    label: "Max Trades Per Day",
-    meaning: "Maximum number of trades the strategy can take in one day.",
-  },
-  {
-    label: "Cost Per Trade",
-    meaning: "Brokerage, slippage, or fees applied to each trade.",
-  },
-  {
-    label: "Bollinger Period",
-    meaning: "Number of candles used to calculate the Bollinger Band average.",
-  },
-  {
-    label: "Bollinger Multiplier",
-    meaning: "Standard deviation multiplier used to form upper and lower bands.",
-  },
-  {
-    label: "Rows Limit",
-    meaning: "Maximum number of rows from the dataset used in the backtest.",
-  },
-];
+
 
 const fieldConfig = [
   {
