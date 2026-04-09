@@ -13,6 +13,41 @@ import {
 } from "recharts";
 import "./App.css";
 
+const parameterReference = [
+  {
+    label: "Stop Loss Points",
+    meaning: "Maximum points you are willing to lose before exiting a trade.",
+  },
+  {
+    label: "Take Profit Points",
+    meaning: "Target profit in points at which the trade is closed.",
+  },
+  {
+    label: "Quantity",
+    meaning: "Number of units/contracts taken in each trade.",
+  },
+  {
+    label: "Max Trades Per Day",
+    meaning: "Maximum number of trades the strategy can take in one day.",
+  },
+  {
+    label: "Cost Per Trade",
+    meaning: "Brokerage, slippage, or fees applied to each trade.",
+  },
+  {
+    label: "Bollinger Period",
+    meaning: "Number of candles used to calculate the Bollinger Band average.",
+  },
+  {
+    label: "Bollinger Multiplier",
+    meaning: "Standard deviation multiplier used to form upper and lower bands.",
+  },
+  {
+    label: "Rows Limit",
+    meaning: "Maximum number of rows from the dataset used in the backtest.",
+  },
+];
+
 const fieldConfig = [
   {
     name: "stop_loss_points",
@@ -162,14 +197,28 @@ function App() {
             ))}
           </div>
 
-          <div className="form-actions">
-            <button
-              className="primary-btn"
-              onClick={runBacktest}
-              disabled={loading}
-            >
-              {loading ? "Running Backtest..." : "Run Backtest"}
-            </button>
+          <div className="form-bottom-row">
+            <div className="form-bottom-row__left">
+              <button
+                className="primary-btn"
+                onClick={runBacktest}
+                disabled={loading}
+              >
+                {loading ? "Running Backtest..." : "Run Backtest"}
+              </button>
+            </div>
+
+            <aside className="reference-card">
+              <h3 className="reference-card__title">Parameter Reference</h3>
+              <div className="reference-list">
+                {parameterReference.map((item) => (
+                  <div className="reference-item" key={item.label}>
+                    <div className="reference-item__label">{item.label}</div>
+                    <div className="reference-item__text">{item.meaning}</div>
+                  </div>
+                ))}
+              </div>
+            </aside>
           </div>
 
           {error && <div className="alert alert--error">{error}</div>}
@@ -211,7 +260,10 @@ function App() {
 
               <div className="chart-card chart-card--dark">
                 <ResponsiveContainer width="100%" height={380}>
-                  <AreaChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 10 }}>
+                  <AreaChart
+                    data={chartData}
+                    margin={{ top: 10, right: 20, left: 0, bottom: 10 }}
+                  >
                     <defs>
                       <linearGradient id="equityFill" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="0%" stopColor="#22c55e" stopOpacity={0.35} />
@@ -219,7 +271,10 @@ function App() {
                       </linearGradient>
                     </defs>
 
-                    <CartesianGrid stroke="rgba(148, 163, 184, 0.12)" vertical={false} />
+                    <CartesianGrid
+                      stroke="rgba(148, 163, 184, 0.12)"
+                      vertical={false}
+                    />
 
                     <XAxis
                       dataKey="trade_date"
@@ -247,7 +302,11 @@ function App() {
                       formatter={(value) => [`${value}`, "Cumulative P&L"]}
                     />
 
-                    <ReferenceLine y={0} stroke="rgba(255,255,255,0.22)" strokeDasharray="4 4" />
+                    <ReferenceLine
+                      y={0}
+                      stroke="rgba(255,255,255,0.22)"
+                      strokeDasharray="4 4"
+                    />
 
                     <Area
                       type="monotone"
