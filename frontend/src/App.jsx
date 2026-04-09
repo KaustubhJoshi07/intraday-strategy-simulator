@@ -97,6 +97,28 @@ function formatMetricLabel(key) {
     .replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
+function formatMetricValue(key, value) {
+  if (value === null || value === undefined || value === "") return "-";
+
+  const numericValue = Number(value);
+  const isNumber = !Number.isNaN(numericValue);
+
+  if (key === "win_rate" && isNumber) {
+    return `${numericValue}%`;
+  }
+
+  if (
+    ["profit_factor", "avg_trade_pnl", "avg_win", "avg_loss", "total_net_pnl", "max_drawdown"].includes(key) &&
+    isNumber
+  ) {
+    return Number.isInteger(numericValue)
+      ? numericValue.toLocaleString()
+      : numericValue.toFixed(2);
+  }
+
+  return String(value);
+}
+
 function App() {
   const [formData, setFormData] = useState({
     stop_loss_points: 30,
@@ -239,7 +261,7 @@ function App() {
                     <div className="metric-card__label">
                       {formatMetricLabel(key)}
                     </div>
-                    <div className="metric-card__value">{String(value)}</div>
+                    <div className="metric-card__value">{formatMetricValue(key, value)}</div>
                   </div>
                 ))}
               </div>
