@@ -52,42 +52,42 @@ const fieldConfig = [
   {
     name: "stop_loss_points",
     label: "Stop Loss Points",
-    help: "Exit the trade if price moves against you by this many points.",
+    tooltip: "Exit the trade if price moves against you by this many points.",
   },
   {
     name: "take_profit_points",
     label: "Take Profit Points",
-    help: "Exit the trade once the target profit is reached.",
+    tooltip: "Exit the trade once the target profit is reached.",
   },
   {
     name: "quantity",
     label: "Quantity",
-    help: "Number of units/contracts per trade.",
+    tooltip: "Number of units/contracts per trade.",
   },
   {
     name: "max_trades_per_day",
     label: "Max Trades Per Day",
-    help: "Maximum trades allowed in a single trading day.",
+    tooltip: "Maximum trades allowed in a single trading day.",
   },
   {
     name: "cost_per_trade",
     label: "Cost Per Trade",
-    help: "Brokerage, slippage, or transaction cost per trade.",
+    tooltip: "Brokerage, slippage, or transaction cost per trade.",
   },
   {
     name: "bollinger_period",
     label: "Bollinger Period",
-    help: "Number of candles used to calculate Bollinger Bands.",
+    tooltip: "Number of candles used to calculate Bollinger Bands.",
   },
   {
     name: "bollinger_multiplier",
     label: "Bollinger Multiplier",
-    help: "Standard deviation multiplier for Bollinger Bands.",
+    tooltip: "Standard deviation multiplier for Bollinger Bands.",
   },
   {
     name: "rows_limit",
     label: "Rows Limit",
-    help: "Maximum number of data rows to process in the backtest.",
+    tooltip: "Maximum number of data rows to process in the backtest.",
   },
 ];
 
@@ -181,19 +181,26 @@ function App() {
           <div className="form-grid">
             {fieldConfig.map((field) => (
               <div className="form-field" key={field.name}>
+              <div className="form-field__label-row">
                 <label className="form-field__label" htmlFor={field.name}>
                   {field.label}
                 </label>
-                <input
-                  id={field.name}
-                  className="form-field__input"
-                  name={field.name}
-                  type="number"
-                  value={formData[field.name]}
-                  onChange={handleChange}
-                />
-                <p className="form-field__help">{field.help}</p>
+
+                <div className="tooltip">
+                  ?
+                  <span className="tooltip-text">{field.tooltip}</span>
+                </div>
               </div>
+
+              <input
+                id={field.name}
+                className="form-field__input"
+                name={field.name}
+                type="number"
+                value={formData[field.name]}
+                onChange={handleChange}
+              />
+            </div>
             ))}
           </div>
 
@@ -208,17 +215,7 @@ function App() {
               </button>
             </div>
 
-            <aside className="reference-card">
-              <h3 className="reference-card__title">Parameter Reference</h3>
-              <div className="reference-list">
-                {parameterReference.map((item) => (
-                  <div className="reference-item" key={item.label}>
-                    <div className="reference-item__label">{item.label}</div>
-                    <div className="reference-item__text">{item.meaning}</div>
-                  </div>
-                ))}
-              </div>
-            </aside>
+           
           </div>
 
           {error && <div className="alert alert--error">{error}</div>}
