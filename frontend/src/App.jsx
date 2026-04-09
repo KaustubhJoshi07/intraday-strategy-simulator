@@ -193,18 +193,14 @@ function App() {
             ))}
           </div>
 
-          <div className="form-bottom-row">
-            <div className="form-bottom-row__left">
-              <button
-                className="primary-btn"
-                onClick={runBacktest}
-                disabled={loading}
-              >
-                {loading ? "Running Backtest..." : "Run Backtest"}
-              </button>
-            </div>
-
-           
+          <div className="form-actions">
+            <button
+              className="primary-btn"
+              onClick={runBacktest}
+              disabled={loading}
+            >
+              {loading ? "Running Backtest..." : "Run Backtest"}
+            </button>
           </div>
 
           {error && <div className="alert alert--error">{error}</div>}
