@@ -236,20 +236,43 @@ function App() {
             </section>
 
             {aiSummary && (
-              <section className="panel">
-                <div className="panel__header">
-                  <div>
-                    <h2 className="panel__title">AI Strategy Summary</h2>
-                    <p className="panel__subtitle">
-                      AI-generated explanation of strategy performance, risk, and possible improvements.
-                    </p>
-                  </div>
+              <div className="ai-summary-card">
+                <div className="ai-summary-header">
+                  <h2>AI Strategy Summary</h2>
+                  <p>
+                    AI-generated explanation of strategy performance, risk, and possible
+                    improvements.
+                  </p>
                 </div>
 
-                <div className="ai-summary-card">
-                  <div className="ai-summary-text">{aiSummary}</div>
+                <div className="ai-summary-body">
+                  {aiSummary.split("\n").map((line, index) => {
+                    const trimmed = line.trim();
+
+                    if (!trimmed) return null;
+
+                    const isHeading =
+                      trimmed.toLowerCase().includes("performance overview") ||
+                      trimmed.toLowerCase().includes("risk & weaknesses") ||
+                      trimmed.toLowerCase().includes("suggestions") ||
+                      trimmed.toLowerCase().includes("improvements");
+
+                    return isHeading ? (
+                      <h4 key={index} className="ai-summary-section-title">
+                        {trimmed}
+                      </h4>
+                    ) : (
+                      <p key={index} className="ai-summary-text">
+                        {trimmed}
+                      </p>
+                    );
+                  })}
                 </div>
-              </section>
+
+                <div className="ai-summary-footer">
+                  <span>AI-generated insights powered by OpenAI</span>
+                </div>
+              </div>
             )}
             
 
