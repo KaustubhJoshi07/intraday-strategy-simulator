@@ -101,6 +101,7 @@ function App() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [aiSummary, setAiSummary] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -115,9 +116,11 @@ function App() {
       setLoading(true);
       setError("");
       setResult(null);
+      setAiSummary("");
 
       const response = await api.post("/run-backtest", formData);
       setResult(response.data);
+      setAiSummary(response.data.ai_summary || "");
     } catch (err) {
       console.error("Backtest failed:", err);
       setError(
@@ -224,11 +227,31 @@ function App() {
                     <div className="metric-card__label">
                       {formatMetricLabel(key)}
                     </div>
-                    <div className="metric-card__value">{formatMetricValue(key, value)}</div>
+                    <div className="metric-card__value">
+                      {formatMetricValue(key, value)}
+                    </div>
                   </div>
                 ))}
               </div>
             </section>
+
+            {aiSummary && (
+              <section className="panel">
+                <div className="panel__header">
+                  <div>
+                    <h2 className="panel__title">AI Strategy Summary</h2>
+                    <p className="panel__subtitle">
+                      AI-generated explanation of strategy performance, risk, and possible improvements.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="ai-summary-card">
+                  <div className="ai-summary-text">{aiSummary}</div>
+                </div>
+              </section>
+            )}
+            
 
             <section className="panel">
               <div className="panel__header">
