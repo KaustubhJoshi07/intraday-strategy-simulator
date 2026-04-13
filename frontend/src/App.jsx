@@ -153,7 +153,7 @@ function App() {
       <main className="container">
         <section className="hero">
           <span className="hero__badge">Live Strategy Dashboard</span>
-          <h1 className="hero__title">Mini Quant Backtester</h1>
+          <h1 className="hero__title">Intraday Strategy Sim</h1>
           <p className="hero__subtitle">
             Run a quick intraday backtest, tune the strategy inputs, and review
             key performance metrics, equity curve, and trade-level results.
