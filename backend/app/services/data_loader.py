@@ -10,10 +10,10 @@ def load_market_data(file_path: str) -> pd.DataFrame:
         raise ValueError(f"Missing required columns: {missing_cols}")
 
     df["datetime"] = pd.to_datetime(
-        df["datetime"],
-        format="%d/%m/%Y %H:%M:%S",
-        errors="coerce"
-)
+    df["datetime"],
+    errors="coerce"
+    )
+
 
     # shift timestamps by 2 hours 50 minutes
     df["datetime"] = df["datetime"] + pd.Timedelta(hours=2, minutes=50)
