@@ -10,7 +10,7 @@ from app.services.ai_summary import generate_ai_summary
 router = APIRouter()
 
 BASE_DIR = Path(__file__).resolve().parents[2]
-DATA_FILE = BASE_DIR / "data" / "raw" / "nifty_5min.csv"
+DATA_FILE = BASE_DIR / "data" / "nifty_5min.csv"
 
 
 @router.post("/run-backtest")
