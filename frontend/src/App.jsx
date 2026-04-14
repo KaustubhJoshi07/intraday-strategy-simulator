@@ -88,13 +88,13 @@ function formatMetricValue(key, value) {
 
 function App() {
   const [formData, setFormData] = useState({
-    stop_loss_points: 30,
-    take_profit_points: 60,
+    stop_loss_points: 15,
+    take_profit_points: 45,
     quantity: 20,
-    max_trades_per_day: 2,
+    max_trades_per_day: 1,
     cost_per_trade: 20,
-    bollinger_period: 20,
-    bollinger_multiplier: 2,
+    bollinger_period: 50,
+    bollinger_multiplier: 3,
     rows_limit: 5000,
   });
 
