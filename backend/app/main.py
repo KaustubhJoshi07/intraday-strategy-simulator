@@ -1,12 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes.backtest import router as backtest_router
-import os
 
 app = FastAPI(title="Mini Quant Backtester API")
-print("API HIT")
-print("Incoming file path:", file_path)
-print("Current working dir:", os.getcwd()) 
 
 app.add_middleware(
     CORSMiddleware,
